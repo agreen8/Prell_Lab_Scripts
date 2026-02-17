@@ -1,0 +1,1 @@
+bin\TWaveCalibrate -ref "input\ref_2022_06_19_N2.dat" -output "output\output_GDX_gp.dat" -input "input\input_GDX_gp.dat" -length 0.254 -lambda 0.012 -velocity 250 -voltage 15 -pressure 4.2 -temp 298 -accuracy 2.0

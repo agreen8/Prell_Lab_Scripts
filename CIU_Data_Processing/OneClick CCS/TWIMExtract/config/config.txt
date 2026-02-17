@@ -1,0 +1,5 @@
+Raw_Directory,C:\Users\Austin\Documents\Grad School\One_click_CCS_calibration\Polya_raw_data
+Range_Directory,C:\Users\Austin\Documents\Grad School\polyA cal\PolyAla_RangeFiles\PolyAla_RangeFiles
+Output_Directory,C:\Users\Austin\Documents\Grad School\polyA cal
+Batch_Directory,C:\
+Rule_Directory,C:\

@@ -1,0 +1,16 @@
+{    
+    "cellfilename": "IonSPA_1.0_inputs\\cell.txt",
+    "ionfilename": "IonSPA_1.0_inputs\\Stx_13_ion.txt",
+    "exp": {
+        "folder": "IonSPA_1.0_inputs",
+        "file": "cell_Stx_13.csv"
+    },
+    "tmax": 0.001,
+    "plotvf": 1,
+    "plottT": 0,
+    "Nrepeats": 50,
+    "dhds_start": [
+        220,
+        247
+    ]
+}

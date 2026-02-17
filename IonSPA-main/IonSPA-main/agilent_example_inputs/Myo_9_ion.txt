@@ -1,0 +1,13 @@
+{
+    	"ion": {
+    	"name": "myo9",
+    	"mass": 17.585,
+    	"charge": 9,
+    	"CCS": 23.1,
+    	"num_atoms": 2411,
+    	"T0": 300,
+        "hcprofname": "peptide",
+	"refdH": 95,
+        "refdS": -100
+    }
+}

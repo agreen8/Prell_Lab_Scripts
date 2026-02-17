@@ -1,0 +1,13 @@
+{
+    	"ion": {
+    	"name": "Stx12",
+    	"mass": 39.111,
+    	"charge": 12,
+    	"CCS": 32.5,
+    	"num_atoms": 5495,
+    	"T0": 300,
+        "hcprofname": "peptide",
+        "refdH": 220,
+        "refdS": 247
+    }
+}

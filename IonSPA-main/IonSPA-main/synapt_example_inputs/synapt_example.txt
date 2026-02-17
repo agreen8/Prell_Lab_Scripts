@@ -1,0 +1,16 @@
+{    
+    "cellfilename": "synapt_example_inputs\\Synapt_CIU_high.txt",
+    "ionfilename": "synapt_example_inputs\\Stx_12_ion.txt",
+    "exp": {
+        "folder": "synapt_example_inputs",
+        "file": "Stx_12_CIU_high_A.csv"
+    },
+    "tmax": 0.005,
+    "plotvf": 1,
+    "plottT": 0,
+    "Nrepeats": 10,
+    "dhds_start": [
+        267,
+        326
+    ]
+}

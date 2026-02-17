@@ -1,0 +1,47 @@
+#Waters .raw File,Range File Name,Range Rile Param: Initial m/z,Range Rile Param: Final m/z,Range Rile Param: Initial Retention Time,Range Rile Param: Final Retention Time,Range Rile Param: Initial Drift bin,Range Rile Param: Final Drift bin,Molecular Weight (approx is sufficient),charge,_raw.csv output location,input location,output location for calibrated file,TWIM cell length (m),wave velocity (m/s),wave height (V),drift region pressure (mbar),temperature (K)
+*(asterisk indicates the start of a new fingerprint),blg7,2622,2625.9,0,100,1,200,18359,7,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BLG_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),blg8,2294.5,2297.8,0,100,1,200,18359,8,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_BLG_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),cytc6,2059,2062.5,0,100,1,200,12357,6,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_CYTC_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),cytc7,1765,1768,0,100,1,200,12357,7,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_CYTC_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),conca19,5360,5500,0,100,1,200,103553,19,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_CONA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),conca20,5100,5220,0,100,1,200,103553,20,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_CONA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),conca21,4860,4960,0,100,1,200,103553,21,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,300,30,4.2,298
+D:\Stx CCS calibration\250730_CONA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),blg11,3315,3360,0,100,1,200,18359,7,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BLG_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),blg12,3040,3080,0,100,1,200,18359,7,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BLG_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),bsa15,4408,4508,0,100,1,200,66742,15,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BSA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),bsa16,4127,4227,0,100,1,200,66742,16,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BSA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),bsa17,3876,3976,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_BSA_IMS_CAL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),stx12,3255,3265,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_FULL_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),4470,4450,4500,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),3912,3900,3930,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),3477,3470,3490,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),3129,3125,3135,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),3353,3345,3360,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),2934,2930,2940,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),2608,2603,2625,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),1956,1953,1958,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),1564,1563,1567,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),1304,1300,1315,0,100,1,200,66742,17,D:\Stx CCS calibration\Raw_csvs,C:\path_to_where_to_put_calibratedfiles,C:\Users\prelllab\Desktop\Maria CCS Calibration\CIU data 042325 exp,0.245,600,20,1.78,298
+D:\Stx CCS calibration\250730_STX_12_ISO_AB.raw,,,,,,,,,,,,,,,,,

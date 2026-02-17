@@ -1,0 +1,5 @@
+#Waters .raw File,Range File Name,Range Rile Param: Initial m/z,Range Rile Param: Final m/z,Range Rile Param: Initial Retention Time,Range Rile Param: Final Retention Time,Range Rile Param: Initial Drift bin,Range Rile Param: Final Drift bin,Molecular Weight (approx is sufficient),charge,_raw.csv output location,input location,output location for calibrated file,TWIM cell length (m),wave velocity (m/s),wave height (V),drift region pressure (mbar),temperature (K)
+*(asterisk indicates the start of a new fingerprint),ubq11_high_a,779,780.5,0,100,1,200,8564,11,D:\UBQ for sams paper\11+,C:\IMSCal19\input_UBQ_WH20_WV600_polyA.dat,D:\UBQ for sams paper\11+,0.245,600,20,1.78,298
+D:\UBQ for sams paper\11+\high\250619_UBQ_MEOH_11_AA.raw,,,,,,,,,,,,,,,,,
+*(asterisk indicates the start of a new fingerprint),ubq11_high_a,1220,1225,0,100,1,200,8564,7,D:\UBQ for sams paper\11+,C:\IMSCal19\input_UBQ_WH20_WV600_polyA.dat,D:\UBQ for sams paper\11+,0.245,600,20,1.78,298
+D:\UBQ for sams paper\7+\high\250618_UBQ_MEOH_high_7_AA.raw,,,,,,,,,,,,,,,,,

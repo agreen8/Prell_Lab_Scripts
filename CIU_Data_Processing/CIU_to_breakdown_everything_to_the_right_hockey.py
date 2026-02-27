@@ -34,7 +34,7 @@ from matplotlib.patches import PathPatch
 from matplotlib.offsetbox import OffsetImage, AnnotationBbox
 
 
-nhl_logo = r"C:\Users\Austin\Documents\Grad School\CIU Breakdown curve dev\20260227_080158.png"
+#nhl_logo = r"C:\Users\Austin\Documents\Grad School\CIU Breakdown curve dev\20260227_080158.png"
 
 dir_path = str(Path().absolute())
 out_path = dir_path + r'\Hockey_Breakdown_curves'
@@ -932,6 +932,7 @@ for key1 in gaussian_data.keys():
     pp.savefig(ciufig)
     pp.close()
     break
+
 
 
 

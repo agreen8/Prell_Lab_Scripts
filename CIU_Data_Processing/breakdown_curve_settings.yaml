@@ -20,7 +20,7 @@ protein_code:
   ccs: True
   gaussian_file: "All_gaussians.csv"
   feature_file: "All-features.csv"
-  add_in: [1]
+  add_in: []
   add_std: 1.1
 ConA:
   vin_interp: 101

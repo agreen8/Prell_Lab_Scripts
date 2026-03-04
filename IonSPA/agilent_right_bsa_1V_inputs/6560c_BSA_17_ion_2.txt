@@ -1,0 +1,13 @@
+{
+    "ion": {
+        "name": "6560c_17_2",
+        "mass": 66.46298,
+        "charge": 17,
+        "CCS": 55.21,
+        "num_atoms": 9270,
+        "T0": 300,
+        "hcprofname": "peptide",
+        "refdH": 95,
+        "refdS": -100
+    }
+}

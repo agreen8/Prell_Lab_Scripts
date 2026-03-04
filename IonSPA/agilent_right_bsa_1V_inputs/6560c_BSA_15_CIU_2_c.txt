@@ -1,0 +1,16 @@
+{
+    "cellfilename": "agilent_right_bsa_1V_inputs/a_CIU_Cell.json",
+    "ionfilename": "agilent_right_bsa_1V_inputs/6560c_BSA_15_ion_2.txt",
+    "exp": {
+        "folder": "agilent_right_bsa_1V_expdata",
+        "file": "6560c_BSA_15_CIU_2_C.csv"
+    },
+    "tmax": 0.005,
+    "plotvf": 1,
+    "plottT": 0,
+    "Nrepeats": 50,
+    "dhds_start": [
+        80,
+        -100
+    ]
+}

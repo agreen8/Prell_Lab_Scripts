@@ -355,9 +355,9 @@ for key1 in gaussian_data.keys():
                 # continue
             
             if 'SF6' in key1 or '_N2_ ' in key1 or ccs:         #just catches a couple of edgecases for the 6560c BSA data
-                if exp_centroid > 12000 or exp_centroid < 3000:
+                if exp_centroid > 12000 or exp_centroid < 1000:
                     continue
-                if exp_fwhm < 100:
+                if exp_fwhm < 50:
                     continue
                 
             if abs(exp_centroid - centroids[index])/centroids[index] > 0.025: #if the experiemtnal centroid is over 5% larger than the median value just use the median
@@ -932,6 +932,7 @@ for key1 in gaussian_data.keys():
     pp.savefig(ciufig)
     pp.close()
     break
+
 
 
 

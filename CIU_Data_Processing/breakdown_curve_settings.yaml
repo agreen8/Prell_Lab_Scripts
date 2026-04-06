@@ -1,18 +1,18 @@
 protein_code:
   '6560c_BSA'
 6560c_BSA:
-  vin_interp: 101
+  vin_interp: 201
   dt_interp_factor: 5
-  savgol_smooth_window: 13 #5/7
+  savgol_smooth_window: 11 #5/7
   savgol_smooth_order: 3 # 1/3 
   choice_val: 1.0
   low_dt_bound: 0.01 #0.05-0.1
   high_dt_bound: 0.01 #0.05-0.1
-  other_dt_bound: 0.01
+  other_dt_bound: 0.5
   amp_low: 0.0
   amp_high: 1.01
-  std_low: 0.0 #0.0-0.8
-  std_high: 0.9 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  std_low: 0.5 #0.0-0.8
+  std_high: 1.1 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
   after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
   plot_low: 4000
   plot_high: 8000
@@ -20,28 +20,32 @@ protein_code:
   ccs: True
   gaussian_file: "All_gaussians.csv"
   feature_file: "All-features.csv"
-  add_in: []
+  add_in: [0]
   add_std: 1.1
-ConA:
-  vin_interp: 101
+  extra_name: "17+"
+NIST_mAb:
+  vin_interp: 201
   dt_interp_factor: 5
-  savgol_smooth_window: 13 #5/7
+  savgol_smooth_window: 11 #5/7
   savgol_smooth_order: 3 # 1/3 
   choice_val: 1.0
-  low_dt_bound: 0.01 #0.05-0.1
-  high_dt_bound: 0.01 #0.05-0.1
-  other_dt_bound: 0.01
-  amp_low: 0.0
-  amp_high: 1.1
+  low_dt_bound: 0.1 #0.05-0.1
+  high_dt_bound: 0.05 #0.05-0.1
+  other_dt_bound: 0.5
+  amp_low: 0.9
+  amp_high: 1.01
   std_low: 0.0 #0.0-0.8
-  std_high: 1.05 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  std_high: 2 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
   after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
-  plot_low: 4500
-  plot_high: 9000
+  plot_low: 6000
+  plot_high: 14000
   subtract: True #always true
   ccs: True
   gaussian_file: "All_gaussians.csv"
   feature_file: "All-features.csv"
+  add_in: [2]
+  add_std: 1.1
+  extra_name: "29+"
 
 BSA:
   vin_interp: 200

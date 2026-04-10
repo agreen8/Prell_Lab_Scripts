@@ -409,7 +409,7 @@ try:
             gaussian_data[key1][f'Feature {i+1}']['Median FWHM'] = median_fwhm
     
         if ccs and 'N2' not in key1:    
-            abund_data = np.loadtxt(f'{key1}ccs_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
+            abund_data = np.loadtxt(f'{key1}_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
         elif 'N2' in key1:
             abund_data = np.loadtxt(f'{key1}_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
         else:

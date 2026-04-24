@@ -91,24 +91,30 @@ polya_check_list = glob.glob(polya_outputfile_location + '\\*.csv')
 
 ###################################################################################33
 
-print('Starting the poly-alanine extraction:')
-start_polya = time.time()
-for polya_range in glob.glob(polya_rangefiles_location):
-    
-    short_range = polya_range.split('\\')[-1]
-    cmd_arg = f'java -jar "{extractor_path}" -i "{polya_raw_data_location}" -o "{polya_outputfile_location}" -m {polya_extraction_mode} -r "{polya_range}" -rulemode {polya_rulemode_boolean} -combinemode {polya_combine_boolean} -ms {polya_ms_boolean}'
-    
-    completed_proc = subprocess.run(cmd_arg)
-    if not completed_proc.returncode == 0:
-        # process finished successfully
-        logger.error('Error in extraction for file {} with range file {}. Data NOT extracted. Check that this is a Waters raw data file and that appropriate range values were provided.'.format(polya_raw_data_location, polya_range))
+if os.path.isdir(polya_outputfile_location) and \
+os.path.isfile(f"{polya_outputfile_location}\\DT_{polya_raw_data_location.split('\\')[-1]}_#A33_3+.txt.ciu"): #EPW 2/9/26
+    print("Poly-alanine has already been extracted.")
+else:
 
-    else:
-        print(f'Done with {short_range}', flush=True)
-end_polya = time.time()
-polya_time = (end_polya - start_polya)
-total_times.append(polya_time)
-print(f'Finished the poly-alanine extraction, took {polya_time} seconds', flush=True)
+    print('Starting the poly-alanine extraction:')
+    start_polya = time.time()
+    for polya_range in glob.glob(polya_rangefiles_location):
+        
+        short_range = polya_range.split('\\')[-1]
+        cmd_arg = f'java -jar "{extractor_path}" -i "{polya_raw_data_location}" -o "{polya_outputfile_location}" -m {polya_extraction_mode} -r "{polya_range}" -rulemode {polya_rulemode_boolean} -combinemode {polya_combine_boolean} -ms {polya_ms_boolean}'
+        
+        completed_proc = subprocess.run(cmd_arg)
+        if not completed_proc.returncode == 0:
+            # process finished successfully
+            logger.error('Error in extraction for file {} with range file {}. Data NOT extracted. Check that this is a Waters raw data file and that appropriate range values were provided.'.format(polya_raw_data_location, polya_range))
+
+        else:
+            print(f'Done with {short_range}', flush=True)
+    end_polya = time.time()
+    polya_time = (end_polya - start_polya)
+    total_times.append(polya_time)
+    print(f'Finished the poly-alanine extraction, took {polya_time} seconds', flush=True)
+
 
 
 

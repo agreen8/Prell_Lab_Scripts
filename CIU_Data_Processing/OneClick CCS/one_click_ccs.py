@@ -170,8 +170,11 @@ for line in gaussians_file:
         if data_count == 1:
             line = line[0].split(',')
             
-            polya = line[0].split('#')[1][:-4]
-            centroid = line[-1]
+            try:
+                possibles = [float(c) for c in line[2:]]
+                centroid = min(possibles)
+            except:
+                continue
             centroid_dict[polya] = centroid
 
         else:
@@ -214,7 +217,8 @@ for line in cal_base:
             numa = num
             
         polya_key = f'A{numa}_{charge}+'
-        
+        if polya_key not in centroid_dict.keys():
+            continue
 
         line[-1] = str(centroid_dict[polya_key])
 

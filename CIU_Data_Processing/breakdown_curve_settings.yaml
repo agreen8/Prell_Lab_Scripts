@@ -1,5 +1,5 @@
 protein_code:
-  '6560c_BSA'
+  'negative_BSA'
 6560c_BSA:
   vin_interp: 201
   dt_interp_factor: 5
@@ -8,7 +8,30 @@ protein_code:
   choice_val: 1.0
   low_dt_bound: 0.01 #0.05-0.1
   high_dt_bound: 0.01 #0.05-0.1
-  other_dt_bound: 0.5
+  other_dt_bound: 0.01
+  amp_low: 0.0
+  amp_high: 1.01
+  std_low: 0.5 #0.0-0.8
+  std_high: 1.1 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
+  plot_low: 4000
+  plot_high: 8000
+  subtract: True #always true
+  ccs: True
+  gaussian_file: "All_gaussians.csv"
+  feature_file: "All-features.csv"
+  add_in: [0]
+  add_std: 1.1
+  extra_name: "10V_16+"
+BSA:
+  vin_interp: 201
+  dt_interp_factor: 5
+  savgol_smooth_window: 11 #5/7
+  savgol_smooth_order: 3 # 1/3 
+  choice_val: 1.0
+  low_dt_bound: 0.01 #0.05-0.1
+  high_dt_bound: 0.01 #0.05-0.1
+  other_dt_bound: 0.0.01
   amp_low: 0.0
   amp_high: 1.01
   std_low: 0.5 #0.0-0.8
@@ -23,6 +46,75 @@ protein_code:
   add_in: [0]
   add_std: 1.1
   extra_name: "17+"
+Old_BSA:
+  vin_interp: 201
+  dt_interp_factor: 5
+  savgol_smooth_window: 11 #5/7
+  savgol_smooth_order: 3 # 1/3 
+  choice_val: 1.0
+  low_dt_bound: 0.01 #0.05-0.1
+  high_dt_bound: 0.01 #0.05-0.1
+  other_dt_bound: 0.0.01
+  amp_low: 0.0
+  amp_high: 1.01
+  std_low: 0.5 #0.0-0.8
+  std_high: 1.01 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
+  plot_low: 0
+  plot_high: 15
+  subtract: True #always true
+  ccs: False
+  gaussian_file: "All_gaussians.csv"
+  feature_file: "All-features.csv"
+  add_in: []
+  add_std: 1.1
+  extra_name: "marieruth_17+"
+negative_BSA:
+  vin_interp: 60
+  dt_interp_factor: 5
+  savgol_smooth_window: 11 #5/7
+  savgol_smooth_order: 3 # 1/3 
+  choice_val: 1.0
+  low_dt_bound: 0.4 #0.05-0.1
+  high_dt_bound: 0.4 #0.05-0.1
+  other_dt_bound: 0.0.01
+  amp_low: 0.0
+  amp_high: 1.2
+  std_low: 0.3 #0.0-0.8
+  std_high: 1.1 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
+  plot_low: 3000
+  plot_high: 5000
+  subtract: True #always true
+  ccs: False
+  gaussian_file: "All_gaussians.csv"
+  feature_file: "All-features.csv"
+  add_in: []
+  add_std: 1.1
+  extra_name: "neg_14+"
+positive_BSA:
+  vin_interp: 60
+  dt_interp_factor: 5
+  savgol_smooth_window: 11 #5/7
+  savgol_smooth_order: 3 # 1/3 
+  choice_val: 1.0
+  low_dt_bound: 0.01 #0.05-0.1
+  high_dt_bound: 0.01 #0.05-0.1
+  other_dt_bound: 0.0.01
+  amp_low: 0.0
+  amp_high: 1.1
+  std_low: 0.5 #0.0-0.8
+  std_high: 0.7 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
+  plot_low: 3000
+  plot_high: 8000
+  subtract: True #always true
+  ccs: False
+  gaussian_file: "All_gaussians.csv"
+  feature_file: "All-features.csv"
+  add_in: []
+  add_std: 1.1
+  extra_name: "pos_17+"
 NIST_mAb:
   vin_interp: 201
   dt_interp_factor: 5
@@ -32,7 +124,7 @@ NIST_mAb:
   low_dt_bound: 0.1 #0.05-0.1
   high_dt_bound: 0.05 #0.05-0.1
   other_dt_bound: 0.5
-  amp_low: 0.9
+  amp_low: 0.0
   amp_high: 1.01
   std_low: 0.0 #0.0-0.8
   std_high: 2 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
@@ -46,126 +138,26 @@ NIST_mAb:
   add_in: [2]
   add_std: 1.1
   extra_name: "29+"
-
-BSA:
-  vin_interp: 200
+NIST_mAb_fab:
+  vin_interp: 201
   dt_interp_factor: 5
-  savgol_smooth_window: 13 #5/7
+  savgol_smooth_window: 11 #5/7
   savgol_smooth_order: 3 # 1/3 
   choice_val: 1.0
-  low_dt_bound: 0.01 #0.05-0.1
-  high_dt_bound: 0.01 #0.05-0.1
-  other_dt_bound: 0.01
+  low_dt_bound: 0.1 #0.05-0.1
+  high_dt_bound: 0.1 #0.05-0.1
+  other_dt_bound: 0.1
   amp_low: 0.0
-  amp_high: 1.01
+  amp_high: 2.1
   std_low: 0.0 #0.0-0.8
-  std_high: 1.0 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
+  std_high: 2 #set to 0.9ish to underaccount/fit both the gaussian and the noise, 1.1/1.2 for the reverse
   after_vin: 200 #set to cut off breakdowncurve if fragmentation is seen-- tune for first 1-2 transitions
-  plot_low: 4000
-  plot_high: 8000
+  plot_low: 5000
+  plot_high: 10000
   subtract: True #always true
   ccs: True
   gaussian_file: "All_gaussians.csv"
   feature_file: "All-features.csv"
-
-NISTmAb:
-  vin_interp: 500
-  dt_interp_factor: 5
-  savgol_smooth_window: 13
-  savgol_smooth_order: 3
-  choice_val: 1.0
-  low_dt_bound: 0.05
-  high_dt_bound: 0.05
-  other_dt_bound: 0.1
-  amp_low: 0.0
-  amp_high: 1.01
-  std_low: 0.0
-  std_high: 1.05
-  after_vin: 150
-  plot_low: 5
-  plot_high: 25
-  subtract: True
-  gaussian_file: "All_gaussians.csv"
-  feature_file: "All-features.csv"
-
-BSA_6560c:
-  vin_interp: 401        #the number if interpolations to do along the x-axis
-  dt_interp_factor: 5    #interpolate the y-axis by num of datapoints*dt_interp_factor
-  savgol_smooth_window: 13   #smoothing paramters
-  savgol_smooth_order: 3     #smoothing parameters
-  choice_val: 1.2            #I can't remember, will figure out later (it's for the fitting order, basicall the fitting order will look at the max exp drift time and find which feature median drifttime is closest to about 20% of the exp drift time)
-  low_dt_bound: 0.01         #percentage to allow drift time/ccs to vary when refitting gaussian for the first feature
-  high_dt_bound: 0.01        #percentage to allow drift time/ccs to vary when refitting gaussian for the last feature
-  other_dt_bound: 0.01       #percentage to allow drift time/ccs to vary when refitting gaussian for the non first/last feature
-  amp_low: 0.0               #lower bound percentage of amplitude that is allowed during refitting
-  amp_high: 1.01             #upper bound percentage of amplitude that is allowed during refitting
-  std_low: 0                 #lower bound percentage of std that is allowed during refitting
-  std_high: 1.05             #upper bound percentage of std that is allowed during refitting
-  after_vin: 200             #after this Vin, consider any fitted gaussian of this feature to be from fragmentation and to not account in BDC 
-  plot_low: 2500             #plot y-lim lower bound
-  plot_high: 9500            #plot y-lim upper bound
-  subtract: True             #subtracts off the fitted gaussian from total drift time profile before fitting the next one
-  gaussian_file: "All_gaussians.csv"
-  feature_file: "All-features.csv"
-
-gS:
-  vin_interp: 401 # 40 
-  dt_interp_factor: 5
-  savgol_smooth_window: 5 #5/7
-  savgol_smooth_order: 2 # 1/3 
-  choice_val: 1.0
-  low_dt_bound: 0.05
-  high_dt_bound: 0.05
-  other_dt_bound: 0.05
-  amp_low: 0.0
-  amp_high: 1.01
-  std_low: 0.8
-  std_high: 1.01
-  after_vin: 50
-  plot_low: 0
-  plot_high: 27.413
-  subtract: True
-  gaussian_file: "All_gaussians.csv"
-  feature_file: "All-features.csv"
-
-BA3:
-  vin_interp: 401 # 40 
-  dt_interp_factor: 5
-  savgol_smooth_window: 5 #5/7
-  savgol_smooth_order: 2 # 1/3 
-  choice_val: 1.0
-  low_dt_bound: 0.05
-  high_dt_bound: 0.05
-  other_dt_bound: 0.05
-  amp_low: 0.0
-  amp_high: 1.01
-  std_low: 0.8
-  std_high: 1.01
-  after_vin: 50
-  plot_low: 1700
-  plot_high: 3550
-  subtract: True
-  gaussian_file: "All_gaussians.csv"
-  feature_file: "All-features.csv"
-
-BLG:
-  vin_interp: 50 # 40 
-  dt_interp_factor: 5
-  savgol_smooth_window: 5 #5/7
-  savgol_smooth_order: 2 # 1/3 
-  choice_val: 1.0
-  low_dt_bound: 0.05
-  high_dt_bound: 0.05
-  other_dt_bound: 0.05
-  amp_low: 0.0
-  amp_high: 1.01
-  std_low: 0.8
-  std_high: 1.01
-  after_vin: 40
-  plot_low: 2000
-  plot_high: 6000
-  subtract: True
-  gaussian_file: "All_gaussians.csv"
-  feature_file: "All-features.csv"
-
-
+  add_in: [1,2]
+  add_std: 1.1
+  extra_name: "reredo_20+"

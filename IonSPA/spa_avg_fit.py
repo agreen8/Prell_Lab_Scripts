@@ -24,7 +24,7 @@
 
 import numpy as np
 import pandas as pd
-from scipy.optimize import minimize, curve_fit
+from scipy.optimize import minimize, curve_fit, fsolve
 import json
 from os import path
 from ionspa import loadjfile, fracloss, lossrate, fracremains
@@ -36,8 +36,13 @@ import matplotlib.pyplot as plt
 import argparse
 from random import random
 import matplotlib
-from scipy import stats
+from scipy import stats, integrate
 from spa_avg import main as avg_main
+import ionspa
+import warnings
+import sys
+warnings.filterwarnings("error")
+const = ionspa.const
 matplotlib.rcParams['pdf.fonttype'] = 42
 matplotlib.rc('font',**{'family':'sans-serif','sans-serif':['Arial']})
 
@@ -273,22 +278,36 @@ def computefracs(dfv, dH, dS):
     return fracremains
 
 def get_CID50(Vins, fracs):
+    '''Finds the Vin where the fraction remaining is 0.5 by linear interpolation'''
     fracs = np.array(fracs)
-    ibelow = np.where(fracs <= 0.5)[0][0]
+    try:
+        ibelow = np.where(fracs <= 0.5)[0][0]
+    except:
+        ibelow = np.where(fracs == fracs[-1])[0][0]
     iabove = ibelow - 1
     slope = (fracs[ibelow] - fracs[iabove])/(Vins[ibelow] - Vins[iabove]) 
     intercept = fracs[iabove] - slope*Vins[iabove]
     CID50 = (0.5 - intercept)/slope
-    return CID50, ibelow
+    
+    cindex = (np.abs(fracs - 0.5)).argmin()
+    
+    return CID50, cindex
 
 def get_lifetime(Vins, fracs):
+    '''Finds the Vin where the fraction remaining is 1/e by linear interpolation'''
     fracs = np.array(fracs)
-    ibelow = np.where(fracs <= 1/np.exp(1))[0][0]
+    try:
+        ibelow = np.where(fracs <= 1/np.exp(1))[0][0]
+    except:
+        ibelow = np.where(fracs == fracs[-1])[0][0]
     iabove = ibelow - 1
     slope = (fracs[ibelow] - fracs[iabove])/(Vins[ibelow] - Vins[iabove]) 
     intercept = fracs[iabove] - slope*Vins[iabove]
     CIDlife = (1/np.exp(1) - intercept)/slope
-    return CIDlife, ibelow
+    
+    cindex = (np.abs(fracs - 1/np.exp(1))).argmin()
+    
+    return CIDlife, cindex
 
 def compute_max_T(dfv):
     
@@ -297,6 +316,88 @@ def compute_max_T(dfv):
     max_T = max(T)
     return max_T
 
+def effective_temp(T, *args):
+    '''Given the average maximum flight time of the trajectories, dH, dS, 
+    and the integral under the Temperature vs time curve, calculates the
+    constant Temperature that will give the same kinetic results as the
+    time varying one'''
+    
+    dH, dS, k_int, t_max = args
+    dHscale = 1000.0*dH/const.R
+    dSscale = dS/const.R
+    
+    func = const.kBoverh*T*np.exp(dSscale - dHscale/T) - k_int/t_max
+
+def compute_rate_integral(dfv, dH, dS):
+    '''Given an np.array dfv with columns(irid, t, z, T) and a specified dH and dS, 
+    Compute the average fraction remaining at the end of the ion trajectories.
+    '''
+    # dfv is a np.array with columns irid, t, z, Temp
+    # each irid is a different ion trajectory
+    # will use this by finding dt array for each irid, and use Temp vs. dt to get ionloss until point where ion reaches max(z)
+    # iridset = set(dfv[:,0])
+    # Ntrajs = len(iridset)
+    # int_results = np.zeros(Ntrajs)
+    ionnum = 0
+    max_Ts = []
+    max_ts = []
+    mean_Ts = []
+    
+    t = dfv[0]
+    dt = t[1:] - t[:-1]
+    z = dfv[1][1:]
+    T = dfv[2][1:]
+    maxzarg = z.argmax()
+    
+    # for irid in iridset:
+        # t = dfv[:,1][dfv[:,0]==irid]
+        # dt = t[1:] - t[:-1]
+        # z = dfv[:,2][dfv[:,0]==irid][1:]
+        # T = dfv[:,3][dfv[:,0]==irid][:]
+        # print(t)
+        # maxz = max(z)
+        # maxzarg = z.argmax()
+    dfrac = lossrate(T, dH, dS)            # full array of loss rates (close to 0)
+    # plt.plot(t[1:], T)
+    # plt.figure()
+    # plt.plot(t[1:],dfrac)
+    # plt.show()
+    try:
+        bi = np.where(dfrac > 1)[0][0]
+        ei = np.where(dfrac > 1)[0][-1]
+        integral = integrate.trapz(dfrac[bi:ei], t[bi:ei])
+        t_max = t[ei] - t[bi]
+        # print('HERE', tmax)
+    except:
+        t_max = max(t) 
+        integral = integrate.trapz(dfrac, t[1:])
+    
+    max_t = t[-1]
+    max_T = T[-1]
+    kint = integral
+    
+    
+        # max_ts.append(t_max)
+        # print(integral)
+        # max_T = max(T)
+        # max_Ts.append(max_T)
+        # int_results[ionnum] = integral
+        # mean_T = np.mean(T)
+        # mean_Ts.append(mean_T)
+        # ionnum = ionnum + 1
+    # max_Ts = np.sort(max_Ts)            
+    # max_ts = np.sort(max_ts)
+    # mean_Ts = np.sort(mean_Ts)
+    # if len(iridset) > 10:
+        # quartile = int(max(iridset)/4)                  #sub-selects the middle 50% temperatures to match data used in fit
+        # max_T = np.mean(max_Ts[quartile:-quartile])
+        # max_t = np.mean(max_ts[quartile:-quartile])
+        # kint = np.mean(int_results[quartile:-quartile])
+    # else:
+        # max_T = np.mean(max_Ts)
+        # max_t = np.mean(max_ts)
+        # kint = np.mean(int_results)
+    return kint, max_T, max_t
 
 # ------------------------------------------------------------------------------
 # ------------------------------------------------------------------------------
@@ -504,7 +605,7 @@ class fitclass():
             self.b = self.popt[1]  #midpoint of gaussian
         except:
             print('Sigmoid fit failed. Using Experiment Data for rescaling and CID50 for combined weighting')
-            self.rescaled_fit = (self.fit_fracs - min(self.fit_fracs)) /(max(self.fit_fracs) - min(self.fit_fracs))
+            self.rescaled_fit = (self.efracs - min(self.efracs)) /(max(self.efracs) - min(self.efracs))
             self.rescaled_fit = np.where(self.rescaled_fit <= 0, 0, self.rescaled_fit)  # and ensure > 0
             ibelow = np.where(self.rescaled_fit <= 0.5)[0][0]
             iabove = ibelow - 1
@@ -519,7 +620,9 @@ class fitclass():
         '''first pass as rescaling, can use it if you want to'''
         
         self.rescaled_fracs = (self.efracs - min(self.fit_fracs)) /(max(self.efracs) - min(self.fit_fracs))
-#        self.efracs = rescaled_fracs
+        self.rescaled_fracs = np.where(self.rescaled_fracs <= 0 , 0, self.rescaled_fracs)
+        # self.efracs = rescaled_fracs
+        # self.rescaled_fracs = self.efracs
 
     def formula_weights(self, weighting='combined'):        
         '''There are three different weighting options: none, square, combined.
@@ -876,21 +979,36 @@ def main(celld, iond, dH, dS, Vins, fracs, title='', outfile=None, plotfile=None
     '''Show predicted fraction remaining vs. Vin for given inputs.
     Plot results with exp data if present.'''
     global fitter
-
+    print()
+    print(outfile, flush=True)
+    print()
     print(f'main(celld, iond, Vins)\n  celld: {celld}\n  iond: {iond}\n  dH: {dH}  dS: {dS}\n  Vins: {Vins}\n  fracs: {fracs}')
 
 
     max_Ts_Vins = []
+    max_ts_Vins = []
     # read data from DB and build the tTd structure
     tTd = {}
+    Teffs = []
     for Vin, avg_Vin in zip(Vins, avg_Vins):
 
         dfv =  avg_main(cell=celld, ion=iond, injectV=avg_Vin, option='IICT', plotfile='none')[0]
+        
+        print(f'Vin: {Vin}')
+        
         # print(dfv.Ti)
         tTd[Vin] = np.array((dfv.t, dfv.zp, dfv.Ti))
-            
+        
+        kint, max_T, max_t = compute_rate_integral(tTd[Vin], dH, dS)
+        
+        args = (dH, dS, kint, max_t)
+        
         max_T = compute_max_T(tTd[Vin])
+        max_ts_Vins.append(max_t)
         max_Ts_Vins.append(max_T)
+        
+        Teff = fsolve(effective_temp, max_T, args=args, full_output=True)[0][0]
+        Teffs.append(round(Teff,2))
     
     # construct the fitter object 
     # do any rescaling and weights calculations and get the initial average squared difference
@@ -938,8 +1056,8 @@ def main(celld, iond, dH, dS, Vins, fracs, title='', outfile=None, plotfile=None
     
     T_harm = stats.hmean(max_Ts_Vins)               #Computes several different temperature values to use for dG calculations
                                                     #T_harm is harmonic average temperature of all Vins
-    CID50, ibelow = get_CID50(Vins, fracs)
-    dfv = tTd[Vins[ibelow]]
+    CID50, indx50 = get_CID50(Vins, fracs)
+    dfv = tTd[Vins[indx50]]
     T_cid50 = compute_max_T(dfv)                    #Average sub-selected max temperature at Vin after CID50 point
     
     CIDlife, ilife = get_lifetime(Vins, fracs)
@@ -949,10 +1067,24 @@ def main(celld, iond, dH, dS, Vins, fracs, title='', outfile=None, plotfile=None
     dG_harm = dH - T_harm * dS/1000
     dG_cid50 = dH - T_cid50 * dS/1000
     dG_life = dH - T_life * dS/1000
+ 
+    errdH = 0.1*dH
+    errdS = 0.25*dS
     
+    T_cid50_eff = Teffs[indx50]
+    
+    dG = dH - T_cid50_eff*dS/1000
+    errdG = 0.20*dG
+    
+    rate_constant = lossrate(T_cid50_eff, dH, dS)
+    Rcid50 = rs[indx50]
+    teff = max_ts_Vins[indx50]
 
-    outhead = 'infile, dH, dS, dGfit, dG_harm, dG_cid50, dG_life, R2, Tfit, T_harm, T_cid50, T_life major3sd, major10sd, minor3sd, minor10sd'
-    outline = f'{title}, {dH:0.2f}, {dS:0.2f}, {dGfit:0.2f}, {dG_harm:0.2f}, {dG_cid50:0.2f}, {dG_life:0.2f}, {avesq:0.2e}, {Tfit:0.2f}, {T_harm:0.2f}, {T_cid50:0.2f}, {T_life:0.2f}, {majorlen:0.2f}, {majorlenx:0.2f}, {minorlen:0.2f}, {minorlenx:0.2f}'
+    outhead = 'infile, dH, errdH, dS, errdS, dG, errdG, R2, Teff, rate_constant, Rcid50, CID50, effective_time'
+    # outline = f'{title}, {dH:0.2f}, {dS:0.2f}, {dGfit:0.2f}, {dG_harm:0.2f}, {dG_cid50:0.2f}, {dG_life:0.2f}, {avesq:0.2e}, {Tfit:0.2f}, {T_harm:0.2f}, {T_cid50:0.2f}, {T_life:0.2f}, {majorlen:0.2f}, {majorlenx:0.2f}, {minorlen:0.2f}, {minorlenx:0.2f}'
+    outline = f'{title}, {dH:0.2f}, {errdH:0.4g}, {dS:0.2f}, {errdS:0.4g}, {dG:0.2f}, {errdG:0.4g}, {avesq:0.2e}, {T_cid50_eff:0.2f}, {rate_constant:0.4g}, {Rcid50:0.4g}, {fitter.b:0.2g}, {teff:0.4g}'
+
+    print(outfile)
 
     if outfile:
         with open(outfile, 'a') as fh:

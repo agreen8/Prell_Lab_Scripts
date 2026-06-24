@@ -41,6 +41,8 @@ dir_path = str(Path().absolute())
 fit_path = dir_path + f'\\{file_header}_fits'
 in_path = dir_path + f'\\{file_header}_inputs'
 run_path = dir_path + f'\\{file_header}_sbatchs'
+db_path = dir_path + f'\\{file_header}_databases'
+plot_path = dir_path + f'\\{file_header}_fit_plots'
 
 if not os.path.exists(fit_path):
     os.makedirs(fit_path)
@@ -48,6 +50,11 @@ if not os.path.exists(in_path):
     os.makedirs(in_path)
 if not os.path.exists(run_path):
     os.makedirs(run_path)
+if not os.path.exists(db_path):
+    os.makedirs(db_path)
+if not os.path.exists(plot_path):
+    os.makedirs(plot_path)
+
 
 for line in sb:
     base.append(f'{line[:-1]}')

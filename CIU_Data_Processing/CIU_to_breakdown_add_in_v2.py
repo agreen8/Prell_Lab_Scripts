@@ -194,6 +194,9 @@ def get_contour_levels(ciu_data, merge_cutoff=10, num_contours=100):
     :return: list of ints (contour levels). Pass returned list directly to pyplot.contourf as 'levels' arg
     """
     possible_steps = np.asarray([0.001, 0.01, 0.1, 1, 10, 100])
+    
+    # print(np.max(ciu_data))
+    # print(np.min(ciu_data),flush=True)
 
     max_val = int(round(np.max(ciu_data) * 100)) + 1  # +1 and -1 for max/min vals are to prevent white spots from appearing after rounding
     min_val = int(round(np.min(ciu_data) * 100)) - 1
@@ -388,8 +391,8 @@ try:
                     if exp_centroid > 12000 or exp_centroid < 15:
                         continue
                     if exp_fwhm < 3:
-                        exp_fwhm = 1.5
-                        # continue
+                        # exp_fwhm = 1.5
+                        continue
                     
                 if abs(exp_centroid - centroids[index])/centroids[index] > 0.05: #if the experiemtnal centroid is over 5% larger than the median value just use the median
                     exp_centroid = centroids[index]
@@ -417,7 +420,9 @@ try:
             gaussian_data[key1][f'Feature {i+1}']['FWHMs'] = list(fwhms)
             gaussian_data[key1][f'Feature {i+1}']['Median FWHM'] = median_fwhm
     
-        if ccs and 'N2' not in key1:    
+        if ccs and 'N2' not in key1 and 'DT' in key1:    
+            abund_data = np.loadtxt(f'{key1}ccs_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
+        elif ccs and 'N2' not in key1: 
             abund_data = np.loadtxt(f'{key1}_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
         elif 'N2' in key1:
             abund_data = np.loadtxt(f'{key1}_raw.csv', dtype='str', delimiter=',')      #loads the _raw.csv data file and prepares it for analysis
@@ -563,7 +568,7 @@ try:
                 leftover_abund = np.where(leftover_abund <= 0, 1, leftover_abund)   # setting all abundances to be positive
                 centroid_index = np.argmin(np.abs((fit_drift - (fit_centroid + 0*fit_sigma))))
                 left_leftover_index = np.argmin(np.abs((fit_drift - (fit_centroid - 0*fit_sigma))))
-                right_leftover_index = np.argmin(np.abs((fit_drift - (fit_centroid + 2*fit_sigma))))
+                right_leftover_index = np.argmin(np.abs((fit_drift - (fit_centroid + 1*fit_sigma))))
                 
                 population_a = fit_abund[left_leftover_index:right_leftover_index]
 
@@ -582,8 +587,8 @@ try:
                         add_in_abund = leftover_abund - old_gaussian
                         add_in_abund = np.where(add_in_abund <= 0, 1, add_in_abund)   # setting all abundances to be positive
                         
-                        l_addin_bound = np.argmin(np.abs((new_drifttimes - (fit_centroid + 2*fit_sigma)))) #this makes it start at the center of the new fitted gaussian
-                        r_addin_bound = np.argmin(np.abs((new_drifttimes - (old_centroid - 0*old_sigma)))) 
+                        l_addin_bound = np.argmin(np.abs((new_drifttimes - (fit_centroid + 0*fit_sigma)))) #this makes it start at the center of the new fitted gaussian
+                        r_addin_bound = np.argmin(np.abs((new_drifttimes - (old_centroid - 1*old_sigma)))) 
 
                         add_auc = integrate.trapezoid(add_in_abund[l_addin_bound:r_addin_bound], new_drifttimes[l_addin_bound:r_addin_bound])
 
@@ -594,8 +599,8 @@ try:
                         fit_sigma = 0
                         ax.fill_between(new_drifttimes[l_addin_bound:r_addin_bound], add_in_abund[l_addin_bound:r_addin_bound], 0, color=colors[i])
 
-
-                left_everythingelse_index = np.argmin(np.abs((new_drifttimes - (fit_centroid + 3*fit_sigma))))
+    
+                left_everythingelse_index = np.argmin(np.abs((new_drifttimes - (fit_centroid + 1*fit_sigma))))
 
                 population_b = leftover_abund[left_everythingelse_index:]
                 popb_auc = integrate.trapezoid(population_b, new_drifttimes[left_everythingelse_index:])
@@ -730,11 +735,11 @@ try:
                     trip = 'C'
                 
                 
-                if 'BSA17D' in key1:
+                if 'BSA17A' in key1:
                     trip = 'A'
-                if 'BSA17G' in key1:
+                if 'BSA17D' in key1:
                     trip = 'B'
-                if 'BSA17J' in key1:
+                if 'BSA17G' in key1:
                     trip = 'C'
                 
                 if '_01_' in key1:
@@ -936,9 +941,12 @@ try:
          
         # Creates the BDCs on fingerprint plots
         
-        new_abundances[np.isnan(new_abundances)] = 0
+        new_abundances[np.isnan(new_abundances)] = 1
         
-        levels = get_contour_levels(stripped_abund/stripped_abund.max(axis=0))
+        ciu_data = stripped_abund/stripped_abund.max(axis=0)
+        ciu_data[np.isnan(ciu_data)] = 1
+        
+        levels = get_contour_levels(ciu_data)
         
         
         ciufig, ax1 = plt.subplots()

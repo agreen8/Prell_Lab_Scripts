@@ -264,6 +264,7 @@ try:
                     gaussian_data[file_to_process]['Data File'] = f'{file_to_process}_raw.csv'
                     for fline in feature_file:
                         if file_to_process in fline[0]:
+                            
                             gaussian_data[file_to_process]['Number of Features'] = len(fline[0].split(',')) - 1
                             # print(fline[0].split(','))
                             for i in range(len(fline[0].split(',')) - 1):
@@ -462,7 +463,7 @@ try:
         # Now onto the Fitting
         for v in range(len(new_Vins)):
             interp_vin = v*(new_Vins[1] - new_Vins[0]) + exp_vins[0]
-            # if round(interp_vin) != 41:
+            # if round(interp_vin) != 10:
             #     continue
             print(f'Vin: {interp_vin}')
             
@@ -578,7 +579,7 @@ try:
 
                 for z in add_in:
                     if i+1 == z:
-                        print('hi')
+                        # print('hi')
                         old_centroid = gaussian_data[key1][f'Feature {i+2}']['GAUSSIAN_CENTROID'][-1]
                         old_sigma = gaussian_data[key1][f'Feature {i+1}']['GAUSSIAN_STD'][-1]
                         old_amp = gaussian_data[key1][f'Feature {i+1}']['GAUSSIAN_AMP'][-1]
@@ -587,7 +588,7 @@ try:
                         add_in_abund = leftover_abund - old_gaussian
                         add_in_abund = np.where(add_in_abund <= 0, 1, add_in_abund)   # setting all abundances to be positive
                         
-                        l_addin_bound = np.argmin(np.abs((new_drifttimes - (fit_centroid + 0*fit_sigma)))) #this makes it start at the center of the new fitted gaussian
+                        l_addin_bound = np.argmin(np.abs((new_drifttimes - (fit_centroid + 1*fit_sigma)))) #this makes it start at the center of the new fitted gaussian
                         r_addin_bound = np.argmin(np.abs((new_drifttimes - (old_centroid - 1*old_sigma)))) 
 
                         add_auc = integrate.trapezoid(add_in_abund[l_addin_bound:r_addin_bound], new_drifttimes[l_addin_bound:r_addin_bound])
@@ -630,9 +631,12 @@ try:
             fig1.tight_layout()
             pp.savefig(fig1)
             plt.close(fig1)
+            # plt.figure()
+            # plt.plot(exp_drift_times, stripped_abund[:,0], ls='--')
+            # plt.plot(new_drifttimes, smoothed_abund, color='k', ls='-')
+            # break
 
-
-
+    
 
         fig,ax = plt.subplots()
         
@@ -926,7 +930,22 @@ try:
     
                 else:
                     trip = 'A'
+                    
+            if ("B2A3" in key1.upper()):
+                protein = "DONOR-BB2_DI"
+                feature = i+1
+                charge = 12
+                
+                if r'a.txt' in key1 or r'C-' in key1:
+                    trip = 'A'
+                elif r'b.txt' in key1 or r'F-' in key1:
+                    trip = 'B'
+                elif r'c.txt' in key1 or r'I-' in key1:
+                    trip = 'C'
     
+                else:
+                    trip = 'A'
+        
                     
             # print(trip)
             outname = f'{out_path}/{protein}_{charge}_CIU_{feature}_{trip}.csv'
@@ -989,13 +1008,12 @@ try:
             
         pp.savefig(ciufig)
         pp.close()
-        # break
+        break
 
 finally:
     output_gaussian_dic_file = date_folder_name + r'\gaussian_dictionary.json'
     with open(output_gaussian_dic_file, 'w') as f:
         json.dump(gaussian_data, f, indent=4)
-
 
 
 
